@@ -1,0 +1,16 @@
+{
+  "name": "tab-foldername-index",
+  "main": "./lib/main",
+  "version": "0.0.1",
+  "description": "Plugin replaces tab's title if opened index.* file for more readability",
+  "keywords": [
+      "index",
+      "tabs",
+      "foldername"
+  ],
+  "repository": "https://github.com/Connormiha/atom-tab-foldername-index",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.7.0"
+  }
+}
