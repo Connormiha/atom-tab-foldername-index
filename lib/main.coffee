@@ -5,7 +5,8 @@ module.exports = WordCount22 =
   active: true
 
   activate: (state) ->
-    @active = state.active
+    @active = if "active" of state then state.active else true
+
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
@@ -28,10 +29,6 @@ module.exports = WordCount22 =
       if typeof event.item.getTitle == "function"
         setTimeout(() => @addTab(event.item))
 
-    # @disposables.add atom.workspace.onDidDestroyPane (event) =>
-    #   id = event.item.id
-    #   @handleTabRemove id
-
     panes = atom.workspace.getPaneItems()
     for item in panes
       @addTab(item)
@@ -53,6 +50,7 @@ module.exports = WordCount22 =
       removeDispose.dispose()
       @handleTabRemove pane.id
 
+    @subscriptions.add removeDispose
     @tabs[pane.id].setEnabled() if @active
 
   handleTabRemove: (id) ->
@@ -60,9 +58,9 @@ module.exports = WordCount22 =
     delete @tabs[id]
 
   deactivate: ->
-    @modalPanel.destroy()
+    @setDisabled()
+    Object.keys(@tabs).forEach((id) => @handleTabRemove(id))
     @subscriptions.dispose()
-    @wordCount22View.destroy()
 
   serialize: ->
     active: @active

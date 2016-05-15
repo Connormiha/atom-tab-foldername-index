@@ -8,7 +8,7 @@ div = (params = {}) ->
 
 class Tab
   regExpIndexName: /^index\..+/
-  className: "word-count22"
+  className: "tab-foldername-index"
 
   constructor: (@pane, @$element) ->
     @handleChange = @pane.onDidChangePath () =>
@@ -24,6 +24,7 @@ class Tab
 
   destroy: ->
     @handleChange.dispose()
+    @handleChange = null
 
   generateTabTitle: (folder, file) ->
     $block = div({className: @className})

@@ -1,1 +1,5 @@
-## 0.0.1 - First Release
+## 0.1.1
+Typo fixes  
+Implements deactivate
+
+## 0.1.0 - First Release
