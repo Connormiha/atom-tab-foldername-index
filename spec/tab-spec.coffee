@@ -20,7 +20,7 @@ createMochHTMLtab = ->
 describe "tab-foldername-index", ->
   it "Should init class Tab", ->
     tab = new Tab(mochPaneInvalid)
-    expect(tab).toBeInstanceOf(Tab)
+    expect(tab).toBeInstanceOf Tab
 
   it "Should work setEnabled", ->
     $element = createMochHTMLtab()
@@ -28,7 +28,7 @@ describe "tab-foldername-index", ->
     tab = new Tab(mochPaneInvalid, $element)
     tab.setEnabled()
     # Status active
-    expect(tab.disabled).toBe(false)
+    expect(tab.disabled).toBe false
 
   it "Shound not render invalid filename", ->
     $element = createMochHTMLtab()
@@ -52,6 +52,6 @@ describe "tab-foldername-index", ->
     tab.setEnabled()
     tab.setDisabled()
     # Status active
-    expect(tab.disabled).toBe(true)
+    expect(tab.disabled).toBe true
     expect($element.querySelector ".#{Tab::className}").not.toExist()
     expect($element.querySelector ".#{Tab::className}__original").not.toExist()
