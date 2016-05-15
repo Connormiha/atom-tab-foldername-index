@@ -5,6 +5,7 @@ div = (params = {}) ->
 
   return item
 
+realTimeout = window.setTimeout
 
 class Tab
   regExpIndexName: /^index\..+/
@@ -12,7 +13,7 @@ class Tab
 
   constructor: (@pane, @$element) ->
     @handleChange = @pane.onDidChangePath () =>
-      setTimeout(() => @checkTab())
+      realTimeout(() => @checkTab())
 
   setEnabled: ->
     @disabled = false

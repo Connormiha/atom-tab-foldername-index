@@ -1,8 +1,9 @@
 {CompositeDisposable} = require "atom"
 Tab = require "./tab"
 
-module.exports = WordCount22 =
-  active: true
+realTimeout = window.setTimeout
+
+module.exports = TabFoldernameIndex =
 
   activate: (state) ->
     @active = if "active" of state then state.active else true
@@ -27,7 +28,7 @@ module.exports = WordCount22 =
     @disposables = new CompositeDisposable
     @disposables.add atom.workspace.onDidAddPaneItem (event) =>
       if typeof event.item.getTitle == "function"
-        setTimeout(() => @addTab(event.item))
+        realTimeout(() => @addTab(event.item))
 
     panes = atom.workspace.getPaneItems()
     for item in panes
