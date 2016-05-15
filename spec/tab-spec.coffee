@@ -42,8 +42,8 @@ describe "tab-foldername-index", ->
 
     tab = new Tab(mochPaneValid, $element)
     tab.setEnabled()
-    expect($element.querySelector ".#{Tab::className}").toBeTruthy()
-    expect($element.querySelector ".#{Tab::className}__original").toBeTruthy()
+    expect($element.querySelector ".#{Tab::className}").toExist()
+    expect($element.querySelector ".#{Tab::className}__original").toExist()
 
   it "Shound work setDisabled", ->
     $element = createMochHTMLtab()
@@ -53,5 +53,5 @@ describe "tab-foldername-index", ->
     tab.setDisabled()
     # Status active
     expect(tab.disabled).toBe(true)
-    expect($element.querySelector ".#{Tab::className}").toBeFalsy()
-    expect($element.querySelector ".#{Tab::className}__original").toBeFalsy()
+    expect($element.querySelector ".#{Tab::className}").not.toExist()
+    expect($element.querySelector ".#{Tab::className}__original").not.toExist()
