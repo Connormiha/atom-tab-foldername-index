@@ -17,12 +17,14 @@ createMochHTMLtab = ->
   item = item.firstElementChild
   return item
 
+$element = null
+
 describe "tab-foldername-index", ->
-  it "Should init class Tab", ->
+  it "should init class Tab", ->
     tab = new Tab(mochPaneInvalid)
     expect(tab).toBeInstanceOf Tab
 
-  it "Should work setEnabled", ->
+  it "should work setEnabled", ->
     $element = createMochHTMLtab()
 
     tab = new Tab(mochPaneInvalid, $element)
@@ -30,14 +32,14 @@ describe "tab-foldername-index", ->
     # Status active
     expect(tab.disabled).toBe false
 
-  it "Shound not render invalid filename", ->
+  it "shouldn't render invalid filename", ->
     $element = createMochHTMLtab()
 
     tab = new Tab(mochPaneInvalid, $element)
     tab.setEnabled()
     expect($element.querySelector ".#{Tab::className}").toBeFalsy()
 
-  it "Shound render valid filename", ->
+  it "shound render valid filename", ->
     $element = createMochHTMLtab()
 
     tab = new Tab(mochPaneValid, $element)
@@ -45,7 +47,14 @@ describe "tab-foldername-index", ->
     expect($element.querySelector ".#{Tab::className}").toExist()
     expect($element.querySelector ".#{Tab::className}__original").toExist()
 
-  it "Shound work setDisabled", ->
+  it "shouldn't render valid filename before setEnabled", ->
+    $element = createMochHTMLtab()
+
+    tab = new Tab(mochPaneValid, $element)
+    expect($element.querySelector ".#{Tab::className}").not.toExist()
+    expect($element.querySelector ".#{Tab::className}__original").not.toExist()
+
+  it "should work setDisabled", ->
     $element = createMochHTMLtab()
 
     tab = new Tab(mochPaneValid, $element)
@@ -55,3 +64,41 @@ describe "tab-foldername-index", ->
     expect(tab.disabled).toBe true
     expect($element.querySelector ".#{Tab::className}").not.toExist()
     expect($element.querySelector ".#{Tab::className}__original").not.toExist()
+
+  describe "onDidChangePath", ->
+    callback = null
+    pane = null
+
+    beforeEach ->
+      $element = createMochHTMLtab()
+      pane = Object.assign({}, mochPaneValid)
+      pane.onDidChangePath = (fn) ->
+        callback = fn
+
+    it "should re-render if enabled", ->
+      tab = new Tab(pane, $element)
+      tab.setEnabled()
+      pane.getTitle = -> "index.py"
+      pane.getPath = -> "/Users/home/index.py"
+      callback()
+
+      waits 20
+
+      runs ->
+        expect($element.querySelector(".#{Tab::className}__file").textContent).toBe "index.py"
+        expect($element.querySelector(".#{Tab::className}__folder").textContent).toBe "home"
+
+    it "shouldn't re-render if disabled", ->
+      tab = new Tab(pane, $element)
+      tab.setEnabled()
+      pane.getTitle = -> "index.py"
+      pane.getPath = -> "/Users/home/index.py"
+      tab.setDisabled()
+      callback()
+
+      waits 20
+
+      runs ->
+        expect(tab.disabled).toBe true
+        expect($element.querySelector ".#{Tab::className}").not.toExist()
+        expect($element.querySelector ".#{Tab::className}__original").not.toExist()

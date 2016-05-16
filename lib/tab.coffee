@@ -10,6 +10,8 @@ realTimeout = window.setTimeout
 class Tab
   regExpIndexName: /^index\..+/
   className: "tab-foldername-index"
+  # Activate by setEnabled method
+  disabled: true
 
   constructor: (@pane, @$element) ->
     @handleChange = @pane.onDidChangePath () =>
@@ -41,7 +43,7 @@ class Tab
   checkTab: () ->
     name = @pane.getTitle()
 
-    if !@regExpIndexName.test name || @disabled
+    if !@regExpIndexName.test(name) || @disabled
       @clearTab()
       return
 
