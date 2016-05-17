@@ -55,6 +55,7 @@ module.exports = TabFoldernameIndex =
     @tabs[pane.id].setEnabled() if @active
 
   handleTabRemove: (id) ->
+    return unless @tabs[id]
     @tabs[id].destroy()
     delete @tabs[id]
 

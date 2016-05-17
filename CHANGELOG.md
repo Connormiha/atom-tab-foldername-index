@@ -1,4 +1,7 @@
 ## 0.2.2
+hotfix: temporary fix for error message when close tabs
+
+## 0.2.2
 hotfix: wrong render tab after file rename, if packages was toggled to disable (by menu)
 
 ## 0.2.1
