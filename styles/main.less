@@ -5,24 +5,29 @@
 
 .tab-foldername-index {
     line-height: 13px;
-    margin: 0.3rem 1rem 0;
+    padding: 0.3rem 1rem 0;
     text-align: center;
+    width: 100%;
 
     &__wrapper {
         display: inline-block;
+        white-space: nowrap;
+        max-width: 100%;
         text-align: left;
+    }
+
+    &__folder, &__file {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
     }
 
     &__folder {
         font-weight: bold;
     }
 
-    &__file {
-        //font-weight: bold;
-    }
-
     &__original {
-        display: none;
+        display: none!important;
     }
 
     .temp ~ & {

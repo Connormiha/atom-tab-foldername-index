@@ -19,16 +19,15 @@ module.exports = TabFoldernameIndex =
     if atom.packages.isPackageActive("tabs")
       @init()
     else
-      @onceActivated = atom.packages.onDidActivatePackage (p) =>
-        if p.name == "tabs"
-          @onceActivated.dispose()
+      onceActivated = atom.packages.onDidActivatePackage ({name}) =>
+        if name == "tabs"
+          onceActivated.dispose()
           @init()
 
   init: ->
     @disposables = new CompositeDisposable
-    @disposables.add atom.workspace.onDidAddPaneItem (event) =>
-      if typeof event.item.getTitle == "function"
-        realTimeout(() => @addTab(event.item))
+    @disposables.add atom.workspace.onDidAddPaneItem ({item}) =>
+      realTimeout(() => @addTab(item))
 
     panes = atom.workspace.getPaneItems()
     for item in panes
@@ -40,6 +39,8 @@ module.exports = TabFoldernameIndex =
   addTab: (pane) ->
     path = pane.getPath?()
     return unless path
+
+    return if @tabs[pane.id]
 
     cssPath = path.replace(/\\/g, "\\\\").replace(/\"/g, "\\\"")
     item = atom.views.getView(atom.workspace).querySelector ".tab .title[data-path=\"#{cssPath}\"]"
@@ -61,7 +62,9 @@ module.exports = TabFoldernameIndex =
 
   deactivate: ->
     @setDisabled()
-    Object.keys(@tabs).forEach((id) => @handleTabRemove(id))
+    for id in Object.keys(@tabs)
+      @handleTabRemove(id)
+
     @subscriptions.dispose()
 
   serialize: ->
@@ -72,10 +75,14 @@ module.exports = TabFoldernameIndex =
       continue unless @tabs.hasOwnProperty key
       tab.setEnabled()
 
+    return
+
   setDisabled: ->
     for key, tab of @tabs
       continue unless @tabs.hasOwnProperty key
       tab.setDisabled()
+
+    return
 
   toggle: ->
     @active = !@active
