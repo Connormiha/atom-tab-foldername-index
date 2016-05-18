@@ -1,7 +1,7 @@
-## 0.2.3
+## 0.2.4
 bugfix: folder with a long name is truncated
 
-## 0.2.2
+## 0.2.3
 hotfix: temporary fix for error message when close tabs
 
 ## 0.2.2
