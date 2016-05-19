@@ -1,7 +1,7 @@
 {
   "name": "tab-foldername-index",
   "main": "./lib/main",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Plugin replaces tab's title if opened index.* file for more readability",
   "keywords": [
     "index",
