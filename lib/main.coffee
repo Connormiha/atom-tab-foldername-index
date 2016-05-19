@@ -16,7 +16,7 @@ module.exports = TabFoldernameIndex =
 
     @tabs = {}
 
-    if atom.packages.isPackageActive("tabs")
+    if atom.packages.isPackageActive "tabs"
       @init()
     else
       onceActivated = atom.packages.onDidActivatePackage ({name}) =>
@@ -31,11 +31,15 @@ module.exports = TabFoldernameIndex =
 
     panes = atom.workspace.getPaneItems()
     for item in panes
-      @addTab(item)
+      @addTab item
 
   deferParse: ->
     setTimeout => @parceTabs()
 
+  ###*
+   * [addTab description]
+   * @param {Panel}
+  ###
   addTab: (pane) ->
     path = pane.getPath?()
     return unless path
@@ -55,6 +59,10 @@ module.exports = TabFoldernameIndex =
     @subscriptions.add removeDispose
     @tabs[pane.id].setEnabled() if @active
 
+  ###*
+   * Runs when close tab or destroed package
+   * @param  {Number} id
+  ###
   handleTabRemove: (id) ->
     return unless @tabs[id]
     @tabs[id].destroy()
@@ -62,8 +70,8 @@ module.exports = TabFoldernameIndex =
 
   deactivate: ->
     @setDisabled()
-    for id in Object.keys(@tabs)
-      @handleTabRemove(id)
+    for id in Object.keys @tabs
+      @handleTabRemove id
 
     @subscriptions.dispose()
 

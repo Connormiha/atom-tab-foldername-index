@@ -6,7 +6,7 @@ pkg = require("../package.json").name
 checkHiddenOriginalTitle = (workspaceElement) ->
   originalTitle = workspaceElement.querySelector ".#{Tab::className}__original"
   expect(originalTitle).toExist()
-  expect(originalTitle.offsetWidth).toBe(0)
+  expect(originalTitle.offsetWidth).toBe 0
 
 
 describe "Tab-foldername-index main", ->
@@ -14,7 +14,7 @@ describe "Tab-foldername-index main", ->
 
   beforeEach ->
     workspaceElement = atom.views.getView atom.workspace
-    jasmine.attachToDOM(workspaceElement)
+    jasmine.attachToDOM workspaceElement
 
     waitsForPromise ->
       atom.packages.activatePackage "tabs"
@@ -28,10 +28,10 @@ describe "Tab-foldername-index main", ->
     runs ->
       $tab = workspaceElement.querySelector ".#{Tab::className}"
       expect($tab).toExist()
-      expect($tab.offsetWidth).toBeGreaterThan(0)
+      expect($tab.offsetWidth).toBeGreaterThan 0
       expect($tab.querySelector(".#{Tab::className}__folder").textContent).toBe "spec"
       expect($tab.querySelector(".#{Tab::className}__file").textContent).toBe "index.js"
-      checkHiddenOriginalTitle(workspaceElement)
+      checkHiddenOriginalTitle workspaceElement
 
   it "should render index.js when opened file after activate plugin", ->
     waitsForPromise ->
@@ -44,10 +44,10 @@ describe "Tab-foldername-index main", ->
     runs ->
       $tab = workspaceElement.querySelector ".#{Tab::className}"
       expect($tab).toExist()
-      expect($tab.offsetWidth).toBeGreaterThan(0)
+      expect($tab.offsetWidth).toBeGreaterThan 0
       expect($tab.querySelector(".#{Tab::className}__folder").textContent).toBe "spec"
       expect($tab.querySelector(".#{Tab::className}__file").textContent).toBe "index.js"
-      checkHiddenOriginalTitle(workspaceElement)
+      checkHiddenOriginalTitle workspaceElement
 
   it "should not render sample.js", ->
     waitsForPromise ->
@@ -77,9 +77,9 @@ describe "Tab-foldername-index main", ->
         atom.packages.activatePackage pkg
 
     runs ->
-      folderBlock = workspaceElement.querySelector(".#{Tab::className}__folder")
+      folderBlock = workspaceElement.querySelector ".#{Tab::className}__folder"
       folderBlock.textContent = "very_looooooooooooooooooooooooooooooong name";
-      expect(folderBlock.offsetWidth).not.toBeGreaterThan(workspaceElement.querySelector(".tab").offsetWidth)
+      expect(folderBlock.offsetWidth).not.toBeGreaterThan workspaceElement.querySelector(".tab").offsetWidth
 
 
 describe "Tab-foldername-index main activated before tabs", ->
@@ -96,10 +96,10 @@ describe "Tab-foldername-index main activated before tabs", ->
     waits 20
 
     runs ->
-      jasmine.attachToDOM(workspaceElement)
+      jasmine.attachToDOM workspaceElement
       $tab = workspaceElement.querySelector ".#{Tab::className}"
       expect($tab).toExist()
-      expect($tab.offsetWidth).toBeGreaterThan(0)
+      expect($tab.offsetWidth).toBeGreaterThan 0
       expect($tab.querySelector(".#{Tab::className}__folder").textContent).toBe "spec"
       expect($tab.querySelector(".#{Tab::className}__file").textContent).toBe "index.js"
-      checkHiddenOriginalTitle(workspaceElement)
+      checkHiddenOriginalTitle workspaceElement

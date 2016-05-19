@@ -1,3 +1,6 @@
+## 0.2.5
+Add VCS coloring if this enabled in Tabs package
+
 ## 0.2.4
 bugfix: folder with a long name is truncated
 

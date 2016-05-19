@@ -4,7 +4,7 @@ htmlTabMock = '<li is="tabs-tab"><div class="title">package.json</div></li>'
 mochPaneInvalid =
     onDidChangePath: () ->
     getTitle: -> "notIndexFileName"
-    getPath: -> "fsfsdfsf"
+    getPath: -> "path"
 
 mochPaneValid =
     onDidChangePath: () ->

@@ -29,6 +29,12 @@ class Tab
     @handleChange.dispose()
     @handleChange = null
 
+  ###*
+   * Generetes DOM element
+   * @param  {String} folder
+   * @param  {String} file
+   * @return {HTMLElement}
+  ###
   generateTabTitle: (folder, file) ->
     $block = div({className: @className})
     $folderBlock = div({className: "#{@className}__folder", textContent: folder})
@@ -40,6 +46,9 @@ class Tab
     $block.appendChild $wrapper
     return $block
 
+  ###*
+   * Checks tab. If path valid, render title else clear old title
+  ###
   checkTab: () ->
     name = @pane.getTitle()
 
@@ -58,10 +67,12 @@ class Tab
 
     $title.classList.add "#{@className}__original"
 
+  ###*
+   * Removes styled title and restore original title
+  ###
   clearTab: () ->
     $title = @$element.querySelector ".title"
-    unless $title.classList.contains("#{@className}__original")
-      return
+    return unless $title.classList.contains "#{@className}__original"
 
     $title.classList.remove "#{@className}__original"
     $wrapper = @$element.querySelector ".#{@className}"
