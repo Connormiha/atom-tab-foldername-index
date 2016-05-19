@@ -2,6 +2,7 @@
 //
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
+@import "ui-variables";
 
 .tab-foldername-index {
     line-height: 13px;
@@ -32,5 +33,18 @@
 
     .temp ~ & {
         font-style: italic;
+    }
+
+    .status-added + & {
+        color: @syntax-color-added
+    }
+
+    .status-modified + & {
+        color: @syntax-color-modified
+    }
+
+    .status-ignored + & {
+        font-weight: normal;
+        opacity: 0.6
     }
 }
