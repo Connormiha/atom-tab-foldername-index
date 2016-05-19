@@ -47,6 +47,42 @@ describe "tab-foldername-index", ->
     expect($element.querySelector ".#{Tab::className}").toExist()
     expect($element.querySelector ".#{Tab::className}__original").toExist()
 
+  it "shound render index.test.js", ->
+    $element = createMochHTMLtab()
+    tmpMock = Object.assign({}, mochPaneValid)
+    tmpMock.getTitle = -> "index.test.js"
+    tab = new Tab(tmpMock, $element)
+    tab.setEnabled()
+    expect($element.querySelector ".#{Tab::className}").toExist()
+    expect($element.querySelector ".#{Tab::className}__original").toExist()
+
+  it "shoundn't render index.foo.js", ->
+    $element = createMochHTMLtab()
+    tmpMock = Object.assign({}, mochPaneValid)
+    tmpMock.getTitle = -> "index.foo.js"
+    tab = new Tab(tmpMock, $element)
+    tab.setEnabled()
+    expect($element.querySelector ".#{Tab::className}").not.toExist()
+    expect($element.querySelector ".#{Tab::className}__original").not.toExist()
+
+  it "shound render __init__.py", ->
+    $element = createMochHTMLtab()
+    tmpMock = Object.assign({}, mochPaneValid)
+    tmpMock.getTitle = -> "__init__.py"
+    tab = new Tab(tmpMock, $element)
+    tab.setEnabled()
+    expect($element.querySelector ".#{Tab::className}").toExist()
+    expect($element.querySelector ".#{Tab::className}__original").toExist()
+
+  it "shound render __init__.php", ->
+    $element = createMochHTMLtab()
+    tmpMock = Object.assign({}, mochPaneValid)
+    tmpMock.getTitle = -> "__init__.php"
+    tab = new Tab(tmpMock, $element)
+    tab.setEnabled()
+    expect($element.querySelector ".#{Tab::className}").toExist()
+    expect($element.querySelector ".#{Tab::className}__original").toExist()
+
   it "shouldn't render valid filename before setEnabled", ->
     $element = createMochHTMLtab()
 

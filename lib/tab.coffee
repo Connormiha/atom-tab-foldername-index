@@ -8,7 +8,7 @@ div = (params = {}) ->
 realTimeout = window.setTimeout
 
 class Tab
-  regExpIndexName: /^index\..+/
+  regExpIndexName: /^(index\.((spec|test)\.)?\w+|__init__\.(py|php))$/
   className: "tab-foldername-index"
   # Activate by setEnabled method
   disabled: true
