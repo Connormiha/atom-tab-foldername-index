@@ -3,8 +3,7 @@ Tab = require "./tab"
 
 realTimeout = window.setTimeout
 
-module.exports = TabFoldernameIndex =
-
+module.exports =
   activate: (state) ->
     @active = if "active" of state then state.active else true
 
@@ -12,7 +11,7 @@ module.exports = TabFoldernameIndex =
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'tab-foldername-index:toggle': => @toggle()
+    @subscriptions.add atom.commands.add "atom-workspace", "tab-foldername-index:toggle": => @toggle()
 
     @tabs = {}
 
@@ -51,7 +50,7 @@ module.exports = TabFoldernameIndex =
 
     return unless item
 
-    @tabs[pane.id] = new Tab(pane, item.parentNode)
+    @tabs[pane.id] = new Tab pane, item.parentNode
     removeDispose = pane.onDidDestroy () =>
       removeDispose.dispose()
       @handleTabRemove pane.id
@@ -79,16 +78,14 @@ module.exports = TabFoldernameIndex =
     active: @active
 
   setEnabled: ->
-    for key, tab of @tabs
-      continue unless @tabs.hasOwnProperty key
-      tab.setEnabled()
+    for key in Object.keys @tabs
+      @tabs[key].setEnabled()
 
     return
 
   setDisabled: ->
-    for key, tab of @tabs
-      continue unless @tabs.hasOwnProperty key
-      tab.setDisabled()
+    for key in Object.keys @tabs
+      @tabs[key].setDisabled()
 
     return
 

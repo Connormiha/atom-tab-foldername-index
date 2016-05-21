@@ -1,6 +1,6 @@
 div = (params = {}) ->
   item = document.createElement "div"
-  for key in Object.keys(params)
+  for key in Object.keys params
     item[key] = params[key]
 
   return item
@@ -30,16 +30,16 @@ class Tab
     @handleChange = null
 
   ###*
-   * Generetes DOM element
+   * Generates DOM element
    * @param  {String} folder
    * @param  {String} file
    * @return {HTMLElement}
   ###
   generateTabTitle: (folder, file) ->
-    $block = div({className: @className})
-    $folderBlock = div({className: "#{@className}__folder", textContent: folder})
-    $fileBlock = div({className: "#{@className}__file", textContent: file})
-    $wrapper = div({className: "#{@className}__wrapper"})
+    $block = div className: @className
+    $folderBlock = div className: "#{@className}__folder", textContent: folder
+    $fileBlock = div className: "#{@className}__file", textContent: file
+    $wrapper = div className: "#{@className}__wrapper"
 
     $wrapper.appendChild $folderBlock
     $wrapper.appendChild $fileBlock
@@ -58,7 +58,7 @@ class Tab
 
     folder = @pane.getPath().split "/"
     folder = folder[folder.length - 2]
-    $tabWrapper = @generateTabTitle(folder, name)
+    $tabWrapper = @generateTabTitle folder, name
     $oldTabWrapper = @$element.querySelector ".#{@className}"
     $oldTabWrapper.remove() if $oldTabWrapper
 
@@ -72,8 +72,6 @@ class Tab
   ###
   clearTab: () ->
     $title = @$element.querySelector ".title"
-    return unless $title.classList.contains "#{@className}__original"
-
     $title.classList.remove "#{@className}__original"
     $wrapper = @$element.querySelector ".#{@className}"
     $wrapper.remove() if $wrapper

@@ -1,3 +1,6 @@
+## 0.3.1
+Minor optimizations
+
 ## 0.3.0
 Add support for `__init__.py`, `__init__.php` files.  
 Change detecting for `index`. Now ignore filename with several dots (example `index.htmltemplate.js`), But `index.test.*`, `index.spec.*` still work
