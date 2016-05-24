@@ -4,8 +4,8 @@ Tab = require "./tab"
 realTimeout = window.setTimeout
 
 module.exports =
-  activate: (state) ->
-    @active = if "active" of state then state.active else true
+  activate: ({active}) ->
+    @active = active != false
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -31,9 +31,6 @@ module.exports =
     panes = atom.workspace.getPaneItems()
     for item in panes
       @addTab item
-
-  deferParse: ->
-    setTimeout => @parceTabs()
 
   ###*
    * [addTab description]

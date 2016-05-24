@@ -97,6 +97,23 @@ describe "Tab-foldername-index main", ->
       expectNotExist workspaceElement.querySelector ".#{Tab::className}",
         workspaceElement.querySelector ".#{Tab::className}__original"
 
+  it "should remember package state after deactivating", ->
+    waitsForPromise ->
+      atom.packages.activatePackage pkg
+      .then ->
+        atom.workspace.open "index.js"
+      .then ->
+        atom.commands.dispatch workspaceElement, "tab-foldername-index:toggle"
+        atom.packages.disablePackage pkg
+      .then ->
+        atom.packages.activatePackage pkg
+
+    waits 20
+
+    runs ->
+      expectNotExist workspaceElement.querySelector ".#{Tab::className}",
+        workspaceElement.querySelector ".#{Tab::className}__original"
+
   it "should reset render styled tabs after toggle(from disable state) command", ->
     waitsForPromise ->
       atom.packages.activatePackage pkg

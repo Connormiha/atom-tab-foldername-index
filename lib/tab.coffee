@@ -7,13 +7,14 @@ div = (params = {}) ->
 
 realTimeout = window.setTimeout
 
+regExpIndexName = /^(index\.((spec|test)\.)?\w+|__init__\.(py|php))$/
+
 class Tab
-  regExpIndexName: /^(index\.((spec|test)\.)?\w+|__init__\.(py|php))$/
   className: "tab-foldername-index"
-  # Activate by setEnabled method
-  disabled: true
 
   constructor: (@pane, @$element) ->
+    # Activate by setEnabled method
+    @disabled = true
     @handleChange = @pane.onDidChangePath () =>
       realTimeout(() => @checkTab())
 
@@ -52,7 +53,7 @@ class Tab
   checkTab: () ->
     name = @pane.getTitle()
 
-    if !@regExpIndexName.test(name) || @disabled
+    if !regExpIndexName.test(name) || @disabled
       @clearTab()
       return
 

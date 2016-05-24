@@ -1,3 +1,6 @@
+## 0.3.2
+Minor optimizations
+
 ## 0.3.1
 Minor optimizations
 
