@@ -1,11 +1,11 @@
 TabPackage = require "../lib/main"
-Tab = require "../lib/tab"
+
 {expectNotExist, expectExist} = require "./tools"
 
 pkg = require("../package.json").name
 
 checkHiddenOriginalTitle = (workspaceElement) ->
-  originalTitle = workspaceElement.querySelector ".#{Tab::className}__original"
+  originalTitle = workspaceElement.querySelector ".#{pkg}__original"
   expectExist originalTitle
   expect(originalTitle.offsetWidth).toBe 0
 
@@ -27,11 +27,11 @@ describe "Tab-foldername-index main", ->
         atom.packages.activatePackage pkg
 
     runs ->
-      $tab = workspaceElement.querySelector ".#{Tab::className}"
+      $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{Tab::className}__folder").textContent).toBe "spec"
-      expect($tab.querySelector(".#{Tab::className}__file").textContent).toBe "index.js"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement
 
   it "should render index.js when opened file after activate plugin", ->
@@ -43,11 +43,11 @@ describe "Tab-foldername-index main", ->
     waits 20
 
     runs ->
-      $tab = workspaceElement.querySelector ".#{Tab::className}"
+      $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{Tab::className}__folder").textContent).toBe "spec"
-      expect($tab.querySelector(".#{Tab::className}__file").textContent).toBe "index.js"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement
 
   it "should not render sample.js", ->
@@ -57,7 +57,7 @@ describe "Tab-foldername-index main", ->
         atom.packages.activatePackage pkg
 
     runs ->
-      expect(workspaceElement.querySelector ".#{Tab::className}").not.toExist()
+      expect(workspaceElement.querySelector ".#{pkg}").not.toExist()
 
   it "should not render sample.js when opened file after activate plugin", ->
     waitsForPromise ->
@@ -68,8 +68,8 @@ describe "Tab-foldername-index main", ->
     waits 20
 
     runs ->
-      expectNotExist workspaceElement.querySelector ".#{Tab::className}",
-        workspaceElement.querySelector ".#{Tab::className}__original"
+      expectNotExist workspaceElement.querySelector ".#{pkg}",
+        workspaceElement.querySelector ".#{pkg}__original"
 
   it "should reset default tab render after deactivate plugin", ->
     waitsForPromise ->
@@ -81,8 +81,8 @@ describe "Tab-foldername-index main", ->
 
     runs ->
       atom.packages.deactivatePackage pkg
-      expectNotExist workspaceElement.querySelector ".#{Tab::className}",
-        workspaceElement.querySelector ".#{Tab::className}__original"
+      expectNotExist workspaceElement.querySelector ".#{pkg}",
+        workspaceElement.querySelector ".#{pkg}__original"
 
   it "should reset default tab render after toggle(from active state) command", ->
     waitsForPromise ->
@@ -94,8 +94,8 @@ describe "Tab-foldername-index main", ->
 
     runs ->
       atom.commands.dispatch workspaceElement, "tab-foldername-index:toggle"
-      expectNotExist workspaceElement.querySelector ".#{Tab::className}",
-        workspaceElement.querySelector ".#{Tab::className}__original"
+      expectNotExist workspaceElement.querySelector ".#{pkg}",
+        workspaceElement.querySelector ".#{pkg}__original"
 
   it "should remember package state after deactivating", ->
     waitsForPromise ->
@@ -111,8 +111,8 @@ describe "Tab-foldername-index main", ->
     waits 20
 
     runs ->
-      expectNotExist workspaceElement.querySelector ".#{Tab::className}",
-        workspaceElement.querySelector ".#{Tab::className}__original"
+      expectNotExist workspaceElement.querySelector ".#{pkg}",
+        workspaceElement.querySelector ".#{pkg}__original"
 
   it "should reset render styled tabs after toggle(from disable state) command", ->
     waitsForPromise ->
@@ -125,8 +125,8 @@ describe "Tab-foldername-index main", ->
 
     runs ->
       atom.commands.dispatch workspaceElement, "tab-foldername-index:toggle"
-      expectExist workspaceElement.querySelector ".#{Tab::className}",
-        workspaceElement.querySelector ".#{Tab::className}__original"
+      expectExist workspaceElement.querySelector ".#{pkg}",
+        workspaceElement.querySelector ".#{pkg}__original"
 
   it "should cut long folder name", ->
     waitsForPromise ->
@@ -135,7 +135,7 @@ describe "Tab-foldername-index main", ->
         atom.packages.activatePackage pkg
 
     runs ->
-      folderBlock = workspaceElement.querySelector ".#{Tab::className}__folder"
+      folderBlock = workspaceElement.querySelector ".#{pkg}__folder"
       folderBlock.textContent = "very_looooooooooooooooooooooooooooooong name";
       expect(folderBlock.offsetWidth).not.toBeGreaterThan workspaceElement.querySelector(".tab").offsetWidth
 
@@ -155,9 +155,9 @@ describe "Tab-foldername-index main activated before tabs", ->
 
     runs ->
       jasmine.attachToDOM workspaceElement
-      $tab = workspaceElement.querySelector ".#{Tab::className}"
+      $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{Tab::className}__folder").textContent).toBe "spec"
-      expect($tab.querySelector(".#{Tab::className}__file").textContent).toBe "index.js"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement

@@ -1,3 +1,7 @@
+## 1.0.0
+Migrate from CoffeeScript to ES2015
+Some changes for index.* detected
+
 ## 0.3.2
 Minor optimizations
 

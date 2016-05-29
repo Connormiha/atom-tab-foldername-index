@@ -1,6 +1,8 @@
 Tab = require "../lib/tab"
 {expectNotExist, expectExist} = require "./tools"
 
+pkg = require("../package.json").name
+
 htmlTabMock = '<li is="tabs-tab"><div class="title">package.json</div></li>'
 mochPaneInvalid =
     onDidChangePath: () ->
@@ -38,14 +40,14 @@ describe "tab-foldername-index", ->
 
     tab = new Tab mochPaneInvalid, $element
     tab.setEnabled()
-    expectNotExist $element.querySelector ".#{Tab::className}"
+    expectNotExist $element.querySelector ".#{pkg}"
 
   it "shound render valid filename", ->
     $element = createMochHTMLtab()
 
     tab = new Tab mochPaneValid, $element
     tab.setEnabled()
-    expectExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "shound render index.test.js", ->
     $element = createMochHTMLtab()
@@ -53,15 +55,15 @@ describe "tab-foldername-index", ->
     tmpMock.getTitle = -> "index.test.js"
     tab = new Tab tmpMock, $element
     tab.setEnabled()
-    expectExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
-  it "shoundn't render index.foo.js", ->
+  it "shound render index.d.ts", ->
     $element = createMochHTMLtab()
     tmpMock = Object.assign {}, mochPaneValid
-    tmpMock.getTitle = -> "index.foo.js"
+    tmpMock.getTitle = -> "index.test.js"
     tab = new Tab tmpMock, $element
     tab.setEnabled()
-    expectNotExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "should render __init__.py", ->
     $element = createMochHTMLtab()
@@ -69,7 +71,7 @@ describe "tab-foldername-index", ->
     tmpMock.getTitle = -> "__init__.py"
     tab = new Tab tmpMock, $element
     tab.setEnabled()
-    expectExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "should render __init__.php", ->
     $element = createMochHTMLtab()
@@ -77,13 +79,13 @@ describe "tab-foldername-index", ->
     tmpMock.getTitle = -> "__init__.php"
     tab = new Tab tmpMock, $element
     tab.setEnabled()
-    expectExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "shouldn't render valid filename before setEnabled", ->
     $element = createMochHTMLtab()
 
     tab = new Tab mochPaneValid, $element
-    expectNotExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectNotExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "should work setDisabled", ->
     $element = createMochHTMLtab()
@@ -93,7 +95,7 @@ describe "tab-foldername-index", ->
     tab.setDisabled()
     # Status active
     expect(tab.disabled).toBe true
-    expectNotExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectNotExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "should clear styled tab", ->
     $element = createMochHTMLtab()
@@ -101,7 +103,7 @@ describe "tab-foldername-index", ->
     tab = new Tab mochPaneValid, $element
     tab.setEnabled()
     tab.clearTab()
-    expectNotExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+    expectNotExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "shouldn't run javascript in filename", ->
     $element = createMochHTMLtab()
@@ -131,8 +133,8 @@ describe "tab-foldername-index", ->
       waits 20
 
       runs ->
-        expect($element.querySelector(".#{Tab::className}__file").textContent).toBe "index.py"
-        expect($element.querySelector(".#{Tab::className}__folder").textContent).toBe "home"
+        expect($element.querySelector(".#{pkg}__file").textContent).toBe "index.py"
+        expect($element.querySelector(".#{pkg}__folder").textContent).toBe "home"
 
     it "shouldn't re-render if disabled", ->
       tab = new Tab(pane, $element)
@@ -146,4 +148,4 @@ describe "tab-foldername-index", ->
 
       runs ->
         expect(tab.disabled).toBe true
-        expectNotExist $element.querySelector ".#{Tab::className}", $element.querySelector ".#{Tab::className}__original"
+        expectNotExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
