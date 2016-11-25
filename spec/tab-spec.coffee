@@ -47,6 +47,7 @@ describe "tab-foldername-index", ->
 
     tab = new Tab mochPaneValid, $element
     tab.setEnabled()
+    expect(tab.$element).toBe $element
     expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
 
   it "shound render index.test.js", ->
