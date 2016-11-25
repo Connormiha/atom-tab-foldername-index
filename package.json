@@ -11,7 +11,7 @@
   "repository": "https://github.com/Connormiha/atom-tab-foldername-index",
   "license": "MIT",
   "engines": {
-    "atom": ">=1.7.0"
+    "atom": ">=1.10.0"
   },
   "dependencies": {}
 }

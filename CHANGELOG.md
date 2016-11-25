@@ -1,3 +1,7 @@
+## 2.0.0
+Fixed bug with opening image file
+Add support for split panel when opened equal tabs
+
 ## 1.0.1
 Minor fixes
 
