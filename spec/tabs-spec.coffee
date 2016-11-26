@@ -26,3 +26,19 @@ describe "tab-foldername-index module", ->
   it "should activate", ->
     pkgModule.activate({})
     expect(pkgModule.active).toBe true
+
+  describe "addTab", ->
+    pane = null
+
+    beforeEach ->
+      pane =
+        getPath: -> 'foo/bar/index.js'
+        onDidDestroy: ->
+
+    it "shouldn't fail with pane without getPath", ->
+      pkgModule.activate({})
+      expect(-> pkgModule.addTab({})).not.toThrow();
+
+    it "shouldn't fail with pane with empty path", ->
+      pkgModule.activate({})
+      expect(-> pkgModule.addTab({getPath: -> ""})).not.toThrow();

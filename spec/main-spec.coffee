@@ -34,6 +34,22 @@ describe "Tab-foldername-index main", ->
       expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement
 
+  it "should render index.js after second opening", ->
+    waitsForPromise ->
+      atom.workspace.open "index.js"
+      .then ->
+        atom.packages.activatePackage pkg
+      .then ->
+        atom.workspace.open "index.js"
+
+    runs ->
+      $tab = workspaceElement.querySelector ".#{pkg}"
+      expectExist $tab
+      expect($tab.offsetWidth).toBeGreaterThan 0
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
+      checkHiddenOriginalTitle workspaceElement
+
   it "should render index.png", ->
     waitsForPromise ->
       atom.workspace.open "index.png"
