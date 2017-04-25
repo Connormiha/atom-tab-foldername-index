@@ -1,3 +1,6 @@
+## 2.0.2
+Fix reset style after drag'n drop tab from other panel
+
 ## 2.0.1
 Minor fix with disabled mode
 
