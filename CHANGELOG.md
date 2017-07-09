@@ -1,3 +1,10 @@
+## 3.0.0
+Added feature: styled tabs with equal names.  
+For example: when opened 2 and more files with same name but from different folders it will styled always(even if name doesn't match pattern index.* ).
+
+## 2.0.3
+Minor bug fixes
+
 ## 2.0.2
 Fix reset style after drag'n drop tab from other panel
 

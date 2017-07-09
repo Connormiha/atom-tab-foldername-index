@@ -5,6 +5,7 @@ describe "tab-foldername-index module", ->
   pkgModule = null
 
   beforeEach ->
+    atom.config.set('tab-foldername-index.equalsNamesEnabled', true)
     pkgModule = Object.assign {}, Tabs
     delete pkgModule.active
     delete pkgModule.tabs

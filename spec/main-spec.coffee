@@ -14,6 +14,7 @@ describe "Tab-foldername-index main", ->
   workspaceElement = null
 
   beforeEach ->
+    atom.config.set('tab-foldername-index.equalsNamesEnabled', true)
     workspaceElement = atom.views.getView atom.workspace
     jasmine.attachToDOM workspaceElement
 
