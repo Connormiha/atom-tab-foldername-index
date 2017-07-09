@@ -77,6 +77,23 @@ describe "tab-foldername-index", ->
       expect(tab2.$elements[0]).toBe $element2
       expectExist $element2.querySelector ".#{pkg}", $element2.querySelector ".#{pkg}__original"
 
+  it "shoundn't render invalid two equal filenames with equalsNamesEnabled=false", ->
+    atom.config.set('tab-foldername-index.equalsNamesEnabled', false)
+    $element1 = createMochHTMLtab()
+
+    tab1 = new Tab mochPaneInvalid, [$element1]
+    tab1.setEnabled()
+
+    $element2 = createMochHTMLtab()
+    tab2 = new Tab mochPaneInvalid, [$element2]
+    tab2.setEnabled()
+
+    waits 20
+
+    runs ->
+      expectNotExist $element1.querySelector ".#{pkg}"
+      expectNotExist $element2.querySelector ".#{pkg}"
+
   it "shound render index.test.js", ->
     $element = createMochHTMLtab()
     tmpMock = Object.assign {}, mochPaneValid
@@ -217,6 +234,45 @@ describe "tab-foldername-index", ->
 
         expect(tab2.$elements[0]).toBe $element2
         expectExist $element2.querySelector ".#{pkg}", $element2.querySelector ".#{pkg}__original"
+
+    it "shoundn't render invalid two equal filenames after rename one with equalsNamesEnabled=false", ->
+      callback1 = null
+      pane1 = Object.assign {}, mochPaneInvalid
+      pane1.getTitle = -> "invalid1"
+      pane1.getPath = -> "/Users/home/invalid1"
+      pane1.onDidChangePath = (fn) ->
+        callback1 = fn
+      $element1 = createMochHTMLtab()
+
+      tab1 = new Tab pane1, [$element1]
+      tab1.setEnabled()
+
+      callback2 = null
+      pane2 = Object.assign {}, mochPaneInvalid
+      pane2.getTitle = -> "invalid2"
+      pane2.getPath = -> "/Users/home/invalid2"
+      pane2.onDidChangePath = (fn) ->
+        callback2 = fn
+      $element2 = createMochHTMLtab()
+      tab2 = new Tab pane2, [$element2]
+      tab2.setEnabled()
+
+      # Different names yet. So should'n render
+      expectNotExist $element1.querySelector ".#{pkg}"
+      expectNotExist $element2.querySelector ".#{pkg}"
+
+      # Let's rename the second tab like first tab
+      pane2.getTitle = -> "invalid1"
+      pane2.getPath = -> "/Users/home/invalid1"
+
+      atom.config.set('tab-foldername-index.equalsNamesEnabled', false)
+      callback2()
+
+      waits 20
+
+      runs ->
+        expectNotExist $element1.querySelector ".#{pkg}"
+        expectNotExist $element2.querySelector ".#{pkg}"
 
 
   it "should create Tab without onDidChangePath, but with file", ->

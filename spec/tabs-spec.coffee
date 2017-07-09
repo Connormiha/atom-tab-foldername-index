@@ -1,11 +1,12 @@
 Tabs = require "../lib/main"
 {expectNotExist, expectExist} = require "./tools"
+pkg = require("../package.json").name
 
 describe "tab-foldername-index module", ->
   pkgModule = null
 
   beforeEach ->
-    atom.config.set('tab-foldername-index.equalsNamesEnabled', true)
+    atom.config.set("#{pkg}.equalsNamesEnabled", true)
     pkgModule = Object.assign {}, Tabs
     delete pkgModule.active
     delete pkgModule.tabs
