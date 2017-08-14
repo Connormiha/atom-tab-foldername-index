@@ -305,3 +305,18 @@ describe "tab-foldername-index", ->
 
     expect(tab.$elements[0]).toBe $element
     expect($element.querySelector(".tab-foldername-index__folder").textContent).toBe "Users/work"
+
+  it "should render many folder names", ->
+    atom.config.set('tab-foldername-index.numberOfFolders', 5)
+    $element = createMochHTMLtab()
+
+    mochPaneValidLangPath =
+        onDidChangePath: () ->
+        getTitle: -> "index.js"
+        getPath: -> "/Users/work/folders1/folders2/folders3/folders4/folders5/folders6/index.js"
+
+    tab = new Tab mochPaneValidLangPath, [$element]
+    tab.setEnabled()
+
+    expect(tab.$elements[0]).toBe $element
+    expect($element.querySelector(".tab-foldername-index__folder").textContent).toBe "folders2/folders3/folders4/folders5/folders6"
