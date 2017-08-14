@@ -26,6 +26,7 @@ $element = null
 describe "tab-foldername-index", ->
   beforeEach ->
     atom.config.set('tab-foldername-index.equalsNamesEnabled', true)
+    atom.config.set('tab-foldername-index.numberOfFolders', 1)
 
   afterEach ->
     mapNames.clear()
@@ -284,3 +285,23 @@ describe "tab-foldername-index", ->
 
     tab = new Tab mochPaneInvalid
     expect(tab).toBeInstanceOf Tab
+
+
+  it "should render only one folder name", ->
+    $element = createMochHTMLtab()
+
+    tab = new Tab mochPaneValid, [$element]
+    tab.setEnabled()
+
+    expect(tab.$elements[0]).toBe $element
+    expect($element.querySelector(".tab-foldername-index__folder").textContent).toBe "work"
+
+  it "should render two folder names", ->
+    atom.config.set('tab-foldername-index.numberOfFolders', 2)
+    $element = createMochHTMLtab()
+
+    tab = new Tab mochPaneValid, [$element]
+    tab.setEnabled()
+
+    expect(tab.$elements[0]).toBe $element
+    expect($element.querySelector(".tab-foldername-index__folder").textContent).toBe "Users/work"
