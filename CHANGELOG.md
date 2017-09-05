@@ -1,4 +1,4 @@
-## 3.1.1
+## 3.2.0
 Bugfix: Italic font style after opening tab. (After 3.1.0)  
 
 ## 3.1.0
