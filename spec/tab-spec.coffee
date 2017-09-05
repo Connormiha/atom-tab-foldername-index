@@ -5,6 +5,7 @@ pkg = require("../package.json").name
 mapNames = require("../lib/mapNames")
 
 htmlTabMock = '<li is="tabs-tab"><div class="title">package.json</div></li>'
+htmlFileIconTabMock = '<li is="tabs-tab"><div class="title temp js-icon icon medium-blue foo">package.json</div></li>'
 mochPaneInvalid =
     onDidChangePath: () ->
     getTitle: -> "notIndexFileName"
@@ -18,6 +19,12 @@ mochPaneValid =
 createMochHTMLtab = ->
   item = document.createElement "div"
   item.innerHTML = htmlTabMock
+  item = item.firstElementChild
+  return item
+
+createMochFileIconHTMLtab = ->
+  item = document.createElement "div"
+  item.innerHTML = htmlFileIconTabMock
   item = item.firstElementChild
   return item
 
@@ -126,6 +133,15 @@ describe "tab-foldername-index", ->
     tab = new Tab tmpMock, [$element]
     tab.setEnabled()
     expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
+
+  it "should render __init__.php with file icons", ->
+    $element = createMochFileIconHTMLtab()
+    tmpMock = Object.assign {}, mochPaneValid
+    tmpMock.getTitle = -> "__init__.php"
+    tab = new Tab tmpMock, [$element]
+    tab.setEnabled()
+    expectExist $element.querySelector ".#{pkg}", $element.querySelector ".#{pkg}__original"
+    expect($element.querySelector(".#{pkg}__flex-wrapper").className).toBe("#{pkg}__flex-wrapper js-icon icon medium-blue")
 
   it "shouldn't render valid filename before setEnabled", ->
     $element = createMochHTMLtab()

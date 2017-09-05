@@ -1,6 +1,9 @@
+## 3.1.1
+Bugfix: Italic font style after opening tab. (After 3.1.0)  
+
 ## 3.1.0
-Feature: Add support for file-icons package [`#6`][]
-Feature: Adding setting that allows users to specify the number of folders they wish to display [`#5`][]
+Feature: Add support for file-icons package [`#6`][]  
+Feature: Adding setting that allows users to specify the number of folders they wish to display [`#5`][]  
 
 [`#6`]: https://github.com/Connormiha/atom-tab-foldername-index/pull/6
 [`#5`]: https://github.com/Connormiha/atom-tab-foldername-index/pull/5
