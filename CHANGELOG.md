@@ -1,3 +1,8 @@
+## 3.2.1
+Bugfix: Fix work on Windows.[`#7`][]  
+
+[`#7`]: https://github.com/Connormiha/atom-tab-foldername-index/pull/7
+
 ## 3.2.0
 Bugfix: Italic font style after opening tab. (After 3.1.0)  
 
