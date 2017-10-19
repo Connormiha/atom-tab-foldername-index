@@ -13,5 +13,9 @@
   "engines": {
     "atom": ">=1.17.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "coffeelint": "^1.16.0",
+    "eslint": "^4.8.0"
+  }
 }

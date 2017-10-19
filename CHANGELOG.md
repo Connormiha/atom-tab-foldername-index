@@ -1,3 +1,9 @@
+## 3.2.2
+Minor fixes after eslint  
+Add Travis for ci  
+Add eslint, coffeelint  
+Fix some broken tests after Atom 1.21  
+
 ## 3.2.1
 Bugfix: Fix work on Windows.[`#7`][]  
 

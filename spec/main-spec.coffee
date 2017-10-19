@@ -3,6 +3,7 @@ TabPackage = require "../lib/main"
 {expectNotExist, expectExist} = require "./tools"
 
 pkg = require("../package.json").name
+FIXTURES_FOLDER = "fixtures"
 
 checkHiddenOriginalTitle = (workspaceElement) ->
   originalTitle = workspaceElement.querySelector ".#{pkg}__original"
@@ -26,13 +27,13 @@ describe "Tab-foldername-index main", ->
     waitsForPromise ->
       atom.workspace.open "index.js"
       .then ->
-        atom.packages.activatePackage pkg
+        atom.packages.activatePackage pkg,
 
     runs ->
       $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe FIXTURES_FOLDER
       expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement
 
@@ -48,7 +49,7 @@ describe "Tab-foldername-index main", ->
       $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe FIXTURES_FOLDER
       expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement
 
@@ -62,7 +63,7 @@ describe "Tab-foldername-index main", ->
       $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe FIXTURES_FOLDER
       expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.png"
       checkHiddenOriginalTitle workspaceElement
 
@@ -78,7 +79,7 @@ describe "Tab-foldername-index main", ->
       $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe FIXTURES_FOLDER
       expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement
 
@@ -168,7 +169,7 @@ describe "Tab-foldername-index main", ->
 
     runs ->
       folderBlock = workspaceElement.querySelector ".#{pkg}__folder"
-      folderBlock.textContent = "very_looooooooooooooooooooooooooooooong name";
+      folderBlock.textContent = "very_looooooooooooooooooooooooooooooong name"
       expect(folderBlock.offsetWidth).not.toBeGreaterThan workspaceElement.querySelector(".tab").offsetWidth
 
 
@@ -190,6 +191,6 @@ describe "Tab-foldername-index main activated before tabs", ->
       $tab = workspaceElement.querySelector ".#{pkg}"
       expectExist $tab
       expect($tab.offsetWidth).toBeGreaterThan 0
-      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe "spec"
+      expect($tab.querySelector(".#{pkg}__folder").textContent).toBe FIXTURES_FOLDER
       expect($tab.querySelector(".#{pkg}__file").textContent).toBe "index.js"
       checkHiddenOriginalTitle workspaceElement

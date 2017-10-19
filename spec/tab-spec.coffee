@@ -7,12 +7,12 @@ mapNames = require("../lib/mapNames")
 htmlTabMock = '<li is="tabs-tab"><div class="title">package.json</div></li>'
 htmlFileIconTabMock = '<li is="tabs-tab"><div class="title temp js-icon icon medium-blue foo">package.json</div></li>'
 mochPaneInvalid =
-    onDidChangePath: () ->
+    onDidChangePath: ->
     getTitle: -> "notIndexFileName"
     getPath: -> "path"
 
 mochPaneValid =
-    onDidChangePath: () ->
+    onDidChangePath: ->
     getTitle: -> "index.js"
     getPath: -> "/Users/work/index.js"
 
@@ -295,7 +295,7 @@ describe "tab-foldername-index", ->
   it "should create Tab without onDidChangePath, but with file", ->
     moch =
       file:
-          onDidRename: () ->
+        onDidRename: ->
       getTitle: -> "notIndexFileName"
       getPath: -> "path"
 
@@ -327,7 +327,7 @@ describe "tab-foldername-index", ->
     $element = createMochHTMLtab()
 
     mochPaneValidLangPath =
-        onDidChangePath: () ->
+        onDidChangePath: ->
         getTitle: -> "index.js"
         getPath: -> "/Users/work/folders1/folders2/folders3/folders4/folders5/folders6/index.js"
 

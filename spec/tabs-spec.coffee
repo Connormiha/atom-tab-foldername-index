@@ -39,8 +39,8 @@ describe "tab-foldername-index module", ->
 
     it "shouldn't fail with pane without getPath", ->
       pkgModule.activate({})
-      expect(-> pkgModule.addTab({})).not.toThrow();
+      expect(-> pkgModule.addTab({})).not.toThrow()
 
     it "shouldn't fail with pane with empty path", ->
       pkgModule.activate({})
-      expect(-> pkgModule.addTab({getPath: -> ""})).not.toThrow();
+      expect(-> pkgModule.addTab({getPath: -> ""})).not.toThrow()
