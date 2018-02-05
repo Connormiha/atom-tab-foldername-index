@@ -1,16 +1,23 @@
 Tabs = require "../lib/main"
-{expectNotExist, expectExist} = require "./tools"
+{expectNotExist, expectExist, mockAtomGetView, restoreAtomGetView} = require "./tools"
 pkg = require("../package.json").name
+mapNames = require("../lib/mapNames")
 
 describe "tab-foldername-index module", ->
   pkgModule = null
+  originalAtomViewsGetView = atom.views.getView
 
   beforeEach ->
     atom.config.set("#{pkg}.equalsNamesEnabled", true)
     pkgModule = Object.assign {}, Tabs
     delete pkgModule.active
-    delete pkgModule.tabs
     delete pkgModule.subscriptions
+
+  afterEach ->
+    mapNames.clear()
+    restoreAtomGetView()
+    pkgModule.activate()
+    pkgModule.deactivate()
 
   it "should toggle", ->
     pkgModule.active = true
@@ -30,12 +37,9 @@ describe "tab-foldername-index module", ->
     expect(pkgModule.active).toBe true
 
   describe "addTab", ->
-    pane = null
-
     beforeEach ->
-      pane =
-        getPath: -> 'foo/bar/index.js'
-        onDidDestroy: ->
+      pkgModule.subscriptions =
+        add: ->
 
     it "shouldn't fail with pane without getPath", ->
       pkgModule.activate({})
@@ -44,3 +48,42 @@ describe "tab-foldername-index module", ->
     it "shouldn't fail with pane with empty path", ->
       pkgModule.activate({})
       expect(-> pkgModule.addTab({getPath: -> ""})).not.toThrow()
+
+    it "should add two different panes", ->
+      pane1 =
+        getPath: -> 'foo/bar/index.js'
+        onDidDestroy: ->
+        getFileName: -> 'index.js'
+        getTitle: -> 'index.js'
+        id: 101
+
+      pane2 =
+        getPath: -> 'foo/bar/index.js'
+        onDidDestroy: ->
+        getFileName: -> 'index.js'
+        getTitle: -> 'index.js'
+        id: 201
+
+      spyOn pane1, "onDidDestroy"
+      spyOn pane2, "onDidDestroy"
+      mockAtomGetView("foo/bar/index.js")
+
+      pkgModule.addTab pane1
+      pkgModule.addTab pane2
+      expect(pane1.onDidDestroy.calls.length).toBe 1
+      expect(pane2.onDidDestroy.calls.length).toBe 1
+
+    it "shouldn't add two same panes", ->
+      pane1 =
+        getPath: -> 'foo/bar/index.js'
+        onDidDestroy: ->
+        getFileName: -> 'index.js'
+        getTitle: -> 'index.js'
+        id: 101
+
+      spyOn pane1, "onDidDestroy"
+      mockAtomGetView("foo/bar/index.js")
+
+      pkgModule.addTab pane1
+      pkgModule.addTab pane1
+      expect(pane1.onDidDestroy.calls.length).toBe 1

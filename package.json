@@ -16,6 +16,7 @@
   "dependencies": {},
   "devDependencies": {
     "coffeelint": "^1.16.0",
-    "eslint": "^4.8.0"
+    "eslint": "^4.8.0",
+    "jsdom": "11.6.2"
   }
 }
