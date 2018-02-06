@@ -1,3 +1,6 @@
+## 3.3
+Fix wrong tab text in case with different panes, but with equal id  
+
 ## 3.2.2
 Minor fixes after eslint  
 Add Travis for ci  
