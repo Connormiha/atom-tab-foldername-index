@@ -87,3 +87,27 @@ describe "tab-foldername-index module", ->
       pkgModule.addTab pane1
       pkgModule.addTab pane1
       expect(pane1.onDidDestroy.calls.length).toBe 1
+
+     it "should add two same panes with same id, but different reference", ->
+       pane1 =
+         getPath: -> 'foo/bar/index.js'
+         onDidDestroy: ->
+         getFileName: -> 'index.js'
+         getTitle: -> 'index.js'
+         id: 1
+
+       pane2 =
+         getPath: -> 'foo/bar/index.js'
+         onDidDestroy: ->
+         getFileName: -> 'index.js'
+         getTitle: -> 'index.js'
+         id: 1
+
+       spyOn pane1, "onDidDestroy"
+       spyOn pane2, "onDidDestroy"
+       mockAtomGetView("foo/bar/index.js")
+
+       pkgModule.addTab pane1
+       pkgModule.addTab pane2
+       expect(pane1.onDidDestroy.calls.length).toBe 1
+       expect(pane1.onDidDestroy.calls.length).toBe 1
