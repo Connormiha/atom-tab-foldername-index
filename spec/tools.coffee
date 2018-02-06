@@ -1,5 +1,5 @@
 {JSDOM} = require('jsdom')
-dom = new JSDOM("<body></body>");
+dom = new JSDOM("<body></body>")
 originalAtomViewsGetView = atom.views.getView
 
 module.exports =
