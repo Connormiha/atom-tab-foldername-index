@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Connormiha/tab-foldername-index.svg?branch=master)](https://travis-ci.org/Connormiha/tab-foldername-index)
+[![Build Status](https://travis-ci.org/Connormiha/atom-tab-foldername-index.svg?branch=master)](https://travis-ci.org/Connormiha/atom-tab-foldername-index)
 
 # tab-foldername-index package
 
