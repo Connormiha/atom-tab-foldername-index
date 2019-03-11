@@ -46,15 +46,23 @@
         font-style: italic;
     }
 
-    .status-added + & {
+    .status-added ~ & {
         color: @syntax-color-added;
     }
 
-    .status-modified + & {
+    .status-modified ~ & {
         color: @syntax-color-modified;
     }
 
-    .status-ignored + & {
+    .status-removed ~ & {
+        color: @syntax-color-removed;
+    }
+
+    .status-renamed ~ & {
+        color: @syntax-color-renamed;
+    }
+
+    .status-ignored ~ & {
         font-weight: normal;
         opacity: 0.6;
     }
