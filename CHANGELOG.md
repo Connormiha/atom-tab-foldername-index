@@ -1,3 +1,6 @@
+## 3.3.1
+Fix colors for CVS statuses[`#9`]  
+
 ## 3.3
 Fix wrong tab text in case with different panes, but with equal id  
 
