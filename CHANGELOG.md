@@ -1,9 +1,11 @@
 ## 3.3.2
-Fix fail in some cases[`#10`]  
+Fix fail in some cases[`#10`][]  
+
 [`#10`]: https://github.com/Connormiha/atom-tab-foldername-index/pull/10
 
 ## 3.3.1
-Fix colors for CVS statuses[`#9`]  
+Fix colors for CVS statuses[`#9`][]  
+
 [`#9`]: https://github.com/Connormiha/atom-tab-foldername-index/pull/9
 
 ## 3.3
